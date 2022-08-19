@@ -9,7 +9,6 @@ function Detail() {
     ).json();
     console.log(json);
   };
-
   useEffect(() => {
     getMovie();
   }, []);
