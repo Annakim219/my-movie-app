@@ -2,10 +2,69 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { useMemo, useRef, useState } from "react";
+import styled from "styled-components";
+
+const MovieContainer = styled.div`
+  width: 450px;
+  margin-bottom: 80px;
+  padding: 20px;
+  padding-bottom: 40px;
+  background-color: #f0f5f9;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  img {
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+    width: 6em;
+    height: 9em;
+    position: relative;
+    top: -40px;
+  }
+`;
+
+const MovieText = styled.div`
+  margin-left: 1.5em;
+
+  .commenter {
+    font-size: 0.9em;
+    letter-spacing: -0.2px;
+    line-height: 140%;
+    color: #1e2022;
+  }
+
+  span {
+    color: dimgray;
+    font-size: 0.8em;
+  }
+
+  ul {
+    font-size: 0.8em;
+    line-height: 120%;
+    margin: 1em 0 0 -3.2em;
+    list-style: none;
+
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+`;
+
+const MovieTitle = styled.div`
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 15px 0 10px 0;
+  a {
+    color: #52616b;
+    text-decoration: none;
+  }
+`;
 
 function Movie({ coverImg, title, summary, genres, id }) {
   const [isShowMore, setIsShowMore] = useState(false);
-  const textLimit = useRef(235);
+  const textLimit = useRef(155);
 
   const commenter = useMemo(() => {
     const shortReview = summary.slice(0, textLimit.current);
@@ -20,25 +79,27 @@ function Movie({ coverImg, title, summary, genres, id }) {
   }, [isShowMore]);
 
   return (
-    <Col lg={6} xs={12}>
-      <div>
+    <Col md={6} xs={12}>
+      <MovieContainer>
         <img src={coverImg} alt={title} />
-        <h2>
-          <Link to={`/movie/${id}`}>{title}</Link>
-        </h2>
-        <div>
-          <span>{commenter}</span>
-          <span onClick={() => setIsShowMore(!isShowMore)}>
-            {summary.length > textLimit.current &&
-              (isShowMore ? null : `  [...Read More]`)}
-          </span>
-        </div>
-        <ul>
-          {genres.map((g) => (
-            <li key={g}>{g}</li>
-          ))}
-        </ul>
-      </div>
+        <MovieText>
+          <MovieTitle>
+            <Link to={`/movie/${id}`}>{title}</Link>
+          </MovieTitle>
+          <div className="commenter">
+            {commenter}
+            <span onClick={() => setIsShowMore(!isShowMore)}>
+              {summary.length > textLimit.current &&
+                (isShowMore ? ` [Close]` : `... [Read More]`)}
+            </span>
+          </div>
+          <ul>
+            {genres.map((g) => (
+              <li key={g}>{g}</li>
+            ))}
+          </ul>
+        </MovieText>
+      </MovieContainer>
     </Col>
   );
 }
