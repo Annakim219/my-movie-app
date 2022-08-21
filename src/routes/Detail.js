@@ -27,6 +27,8 @@ function Detail() {
         runtime={data.runtime}
         genres={data.genres}
         description={data.description_full}
+        coverImg={data.medium_cover_image}
+        bgImg={data.background_image}
       />
     </div>
   );

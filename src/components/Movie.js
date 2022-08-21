@@ -4,8 +4,10 @@ import { Col } from "react-bootstrap";
 import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 
-const MovieContainer = styled.div`
-  width: 450px;
+const ListContainer = styled.div`
+  width: 500px;
+  height: ${(props) => (props.isShowMore === false ? "250px" : "auto")};
+  margin: 0 auto;
   margin-bottom: 80px;
   padding: 20px;
   padding-bottom: 40px;
@@ -44,6 +46,8 @@ const MovieText = styled.div`
     line-height: 120%;
     margin: 1em 0 0 -3.2em;
     list-style: none;
+    color: darkgray;
+    font-weight: 600;
 
     li {
       float: left;
@@ -78,9 +82,11 @@ function Movie({ coverImg, title, summary, genres, id }) {
     return summary;
   }, [isShowMore]);
 
+  console.log(isShowMore);
+
   return (
     <Col md={6} xs={12}>
-      <MovieContainer>
+      <ListContainer isShowMore={isShowMore}>
         <img src={coverImg} alt={title} />
         <MovieText>
           <MovieTitle>
@@ -99,7 +105,7 @@ function Movie({ coverImg, title, summary, genres, id }) {
             ))}
           </ul>
         </MovieText>
-      </MovieContainer>
+      </ListContainer>
     </Col>
   );
 }

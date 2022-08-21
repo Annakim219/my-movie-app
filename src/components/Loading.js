@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 const LoadingContainer = styled.div`
   position: relative;
-  margin: 50px auto;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
