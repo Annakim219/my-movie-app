@@ -7,8 +7,7 @@ import styled from "styled-components";
 const ListContainer = styled.div`
   width: 500px;
   height: ${(props) => (props.isShowMore === false ? "250px" : "auto")};
-  margin: 0 auto;
-  margin-top: 100px;
+  margin: 65px auto 40px auto;
   padding: 20px;
   padding-bottom: 40px;
   background-color: #f0f5f9;
